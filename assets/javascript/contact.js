@@ -1,6 +1,7 @@
 $("#add-contact").click(function(event) {
 
     event.preventDefault();
+
     
     var firstName = $("#first-name").val().trim();
     var lastName = $("#last-name").val().trim();
@@ -12,7 +13,7 @@ $("#add-contact").click(function(event) {
     console.log(email);
     console.log(comments);
 
-
+  alert("You've been successfully signed up")
 })
 
   // Initialize Firebase
