@@ -61,7 +61,7 @@ firebase.initializeApp(config);
     firebase.auth().onAuthStateChanged(function (user) {
         console.log("logged in", user);
         if (user) {
-            //document.location.href = "passwords.html";
+            document.location.href = "passwords.html";
         }
     });
 })();
