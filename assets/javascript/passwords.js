@@ -10,11 +10,23 @@ var config = {
 firebase.initializeApp(config);
 //when page is ready, make is so that you can add a card.
 $(document).ready(function () {
+
   var database = firebase.database();
   var website = "";
   var username = "";
   var password = "";
-  //when the add card button is clicked, the information in the form is sent to the database.
+
+$("#logout-link").on("click", function (event) {
+  event.preventDefault();
+
+  firebase.auth().signOut().then(function () {
+  }).catch(function (error) {
+      alert("logout failed, try again");
+      console.log(error);
+  });
+});
+
+   //when the add card button is clicked, the information in the form is sent to the database.
   $("#addCard").click(function () {
     event.preventDefault();
     website = $("#websiteValue").val().trim();

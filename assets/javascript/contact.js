@@ -1,6 +1,7 @@
 $("#add-contact").click(function(event) {
 
     event.preventDefault();
+
     
     var firstName = $("#first-name").val().trim();
     var lastName = $("#last-name").val().trim();
@@ -12,7 +13,7 @@ $("#add-contact").click(function(event) {
     console.log(email);
     console.log(comments);
 
-
+  alert("You've been successfully signed up")
 })
 
   // Initialize Firebase
@@ -25,3 +26,13 @@ $("#add-contact").click(function(event) {
     messagingSenderId: "6699316700"
   };
   firebase.initializeApp(config);
+
+  $("#logout-link").on("click", function (event) {
+    event.preventDefault();
+
+    firebase.auth().signOut().then(function () {
+    }).catch(function (error) {
+        alert("logout failed, try again");
+        console.log(error);
+    });
+});
