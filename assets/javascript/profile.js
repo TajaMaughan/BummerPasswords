@@ -23,6 +23,6 @@ $("#logout-link").on("click", function (event) {
 firebase.auth().onAuthStateChanged(function (user) {
     console.log("logged out", user);
     if (!user) {
-        document.location.href = "login.html";
+        //document.location.href = "login.html";
     }
 });
