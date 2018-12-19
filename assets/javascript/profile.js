@@ -9,7 +9,7 @@ var config = {
 };
 firebase.initializeApp(config);
 
-$("#logout-link").on("click", function (event) {
+    $("#logout-link").on("click", function (event) {
     event.preventDefault();
 
     firebase.auth().signOut().then(function () {
@@ -19,7 +19,7 @@ $("#logout-link").on("click", function (event) {
     });
 });
 
-//Listen to auth state changes
+// Listen to auth state changes
 firebase.auth().onAuthStateChanged(function (user) {
     console.log("logged out", user);
     if (!user) {
