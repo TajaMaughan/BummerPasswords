@@ -54,6 +54,6 @@ $("#logout-link").on("click", function (event) {
 
 })
 
-  $(".delete").on("click", function () {
-    $(this).closest("div").remove();
-  })
+$(".delete").on("click", function () {
+  $(this).closest("div").remove();
+})
