@@ -14,7 +14,7 @@ $(document).ready(function () {
   var website = "";
   var username = "";
   var password = "";
-//when the add card button is clicked, the information in the form is sent to the database.
+  //when the add card button is clicked, the information in the form is sent to the database.
   $("#addCard").click(function () {
     event.preventDefault();
     website = $("#websiteValue").val().trim();
@@ -33,9 +33,15 @@ $(document).ready(function () {
     console.log("clicked");
   })
 
-//then the information is pulled from the database and put on the screen
+  //then the information is pulled from the database and put on the screen
   database.ref().on("child_added", function (snapshot) {
     var snapshot = snapshot.val();
-    $("#cardSpace").append('<div class="card" style="width: 18rem;"><div class="card-body"><h5 class="card-title"><a href="#" id="website">Website:  ' + snapshot.website + '</a></h5><p class="card-text" id="username">Username: ' + snapshot.username + '</p><p class="card-text" id="password">Password: ' + snapshot.password + '</p><a href="#" class="btn btn-primary">Edit</a><a href="#" class="btn btn-primary">Delete</a></div></div>');
+    $("#cardSpace").append('<div class="card" id="' + snapshot.website + '" style="width: 18rem;"><div class="card-body"><h5 class="card-title"><a href="' + snapshot.website + '" class="website">Website:  ' + snapshot.website + '</a></h5><p class="card-text" class="username">Username: ' + snapshot.username + '</p><p class="card-text" class="password">Password: ' + snapshot.password + '</p><button href="#" class="btn btn-primary edit">Edit</button><button href="#" class="btn btn-primary delete">Delete</button></div></div>');
   })
+
+
 })
+
+  $(".delete").on("click", function () {
+    $(this).closest("div").remove();
+  })
