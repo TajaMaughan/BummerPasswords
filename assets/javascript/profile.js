@@ -1,20 +1,28 @@
-$(document).ready(function() {
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyBtwbKPk-wwhdgUIVbql_WMwiXXudffNyk",
+    authDomain: "bummerpassword.firebaseapp.com",
+    databaseURL: "https://bummerpassword.firebaseio.com",
+    projectId: "bummerpassword",
+    storageBucket: "bummerpassword.appspot.com",
+    messagingSenderId: "6699316700"
+};
+firebase.initializeApp(config);
 
-    
-    var readURL = function(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
+$("#logout-link").on("click", function (event) {
+    event.preventDefault();
 
-            reader.onload = function (e) {
-                $('.avatar').attr('src', e.target.result);
-            }
-    
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-    
-
-    $(".file-upload").on('change', function(){
-        readURL(this);
+    firebase.auth().signOut().then(function () {
+    }).catch(function (error) {
+        alert("logout failed, try again");
+        console.log(error);
     });
+});
+
+//Listen to auth state changes
+firebase.auth().onAuthStateChanged(function (user) {
+    console.log("logged out", user);
+    if (!user) {
+        document.location.href = "login.html";
+    }
 });
