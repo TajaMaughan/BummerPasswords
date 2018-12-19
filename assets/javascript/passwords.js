@@ -8,12 +8,13 @@ var config = {
   messagingSenderId: "6699316700"
 };
 firebase.initializeApp(config);
+//when page is ready, make is so that you can add a card.
 $(document).ready(function () {
-var database = firebase.database();
-var website = "";
-var username = "";
-var password = "";
-
+  var database = firebase.database();
+  var website = "";
+  var username = "";
+  var password = "";
+//when the add card button is clicked, the information in the form is sent to the database.
   $("#addCard").click(function () {
     event.preventDefault();
     website = $("#websiteValue").val().trim();
@@ -32,7 +33,7 @@ var password = "";
     console.log("clicked");
   })
 
-
+//then the information is pulled from the database and put on the screen
   database.ref().on("child_added", function (snapshot) {
     var snapshot = snapshot.val();
     $("#cardSpace").append('<div class="card" style="width: 18rem;"><div class="card-body"><h5 class="card-title"><a href="#" id="website">Website:  ' + snapshot.website + '</a></h5><p class="card-text" id="username">Username: ' + snapshot.username + '</p><p class="card-text" id="password">Password: ' + snapshot.password + '</p><a href="#" class="btn btn-primary">Edit</a><a href="#" class="btn btn-primary">Delete</a></div></div>');
