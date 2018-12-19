@@ -14,6 +14,16 @@ var website = "";
 var username = "";
 var password = "";
 
+$("#logout-link").on("click", function (event) {
+  event.preventDefault();
+
+  firebase.auth().signOut().then(function () {
+  }).catch(function (error) {
+      alert("logout failed, try again");
+      console.log(error);
+  });
+});
+
   $("#addCard").click(function () {
     event.preventDefault();
     website = $("#websiteValue").val().trim();

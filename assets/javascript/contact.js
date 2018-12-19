@@ -26,3 +26,13 @@ $("#add-contact").click(function(event) {
     messagingSenderId: "6699316700"
   };
   firebase.initializeApp(config);
+
+  $("#logout-link").on("click", function (event) {
+    event.preventDefault();
+
+    firebase.auth().signOut().then(function () {
+    }).catch(function (error) {
+        alert("logout failed, try again");
+        console.log(error);
+    });
+});
