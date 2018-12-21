@@ -1,11 +1,11 @@
 // Initialize Firebase
 var config = {
-    apiKey: "AIzaSyBtwbKPk-wwhdgUIVbql_WMwiXXudffNyk",
-    authDomain: "bummerpassword.firebaseapp.com",
-    databaseURL: "https://bummerpassword.firebaseio.com",
-    projectId: "bummerpassword",
-    storageBucket: "bummerpassword.appspot.com",
-    messagingSenderId: "6699316700"
+  apiKey: "AIzaSyBtwbKPk-wwhdgUIVbql_WMwiXXudffNyk",
+  authDomain: "bummerpassword.firebaseapp.com",
+  databaseURL: "https://bummerpassword.firebaseio.com",
+  projectId: "bummerpassword",
+  storageBucket: "bummerpassword.appspot.com",
+  messagingSenderId: "6699316700"
 };
 firebase.initializeApp(config);
 //when page is ready, make is so that you can add a card.
@@ -16,7 +16,6 @@ $(document).ready(function () {
   var username = "";
   var password = "";
   var cardArray = [];
-  var cardNumber = 0;
 
 
   $("#logout-link").on("click", function (event) {
@@ -60,20 +59,22 @@ $(document).ready(function () {
     })
   })
   //then the information is pulled from the database and put on the screen
-  database.ref().on("child_added", function (snapshot) {
-    var snapshot = snapshot.val();
-    console.log(snapshot.website);
-    cardNumber++;
-    cardArray.push(cardNumber);
-      $("#cardSpace").append('<div class="card" style="width: 18rem;"><div class="card-body"><h5 class="card-title"><a href="http://www.' + snapshot.website + ' class="website">Website:  ' + snapshot.website + '</a></h5><p class="card-text" class="username">Username: ' + snapshot.username + '</p><p class="card-text" class="password">Password: ' + snapshot.password + '</p><button href="#" class="btn btn-primary edit">Edit</button><button href="#" class="btn btn-primary delete">Delete</button></div></div>');
-      console.log(cardArray);
+  database.ref().on("child_added", function (child) {
+    var snapshot = child.val();
+    console.log(child.key);
+
+    var div = '<div class="card passCard" id="card' + child.key + '" style="width: 18rem;"><div class="card-body"><h5 class="card-title"><a href="http://www.' + snapshot.website + '" target="_blank" class="website">Website:  ' + snapshot.website + '</a></h5><p class="card-text" class="username">Username: ' + snapshot.username + '</p><p class="card-text" class="password">Password: ' + snapshot.password + '</p><button href="#" class="btn btn-primary edit">Edit</button><button href="#" class="btn btn-primary delete" data-id="' + child.key + '">Delete</button></div></div>';
+    $("#cardSpace").append(div);
+
+    cardArray.push(div);
+
+    
   })
-  for(i = 0; i < cardArray.length; i++) {
-    $(".card").each(function() {
-      $(this).attr("id", [i]);
-    })
-  }
-  $(".delete").click(function () {
-    console.log("clicked");
+  database.ref().on("child_removed", function(child) {
+    $("#card" + child.key).remove();
+  })
+  $("body").on("click", ".delete", function () {
+    var id = $(this).attr("data-id")
+    database.ref().child(id).remove();
   })
 })
