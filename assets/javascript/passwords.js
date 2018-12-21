@@ -1,11 +1,11 @@
 // Initialize Firebase
 var config = {
-  apiKey: "AIzaSyBtwbKPk-wwhdgUIVbql_WMwiXXudffNyk",
-  authDomain: "bummerpassword.firebaseapp.com",
-  databaseURL: "https://bummerpassword.firebaseio.com",
-  projectId: "bummerpassword",
-  storageBucket: "bummerpassword.appspot.com",
-  messagingSenderId: "6699316700"
+    apiKey: "AIzaSyBtwbKPk-wwhdgUIVbql_WMwiXXudffNyk",
+    authDomain: "bummerpassword.firebaseapp.com",
+    databaseURL: "https://bummerpassword.firebaseio.com",
+    projectId: "bummerpassword",
+    storageBucket: "bummerpassword.appspot.com",
+    messagingSenderId: "6699316700"
 };
 firebase.initializeApp(config);
 //when page is ready, make is so that you can add a card.
@@ -24,6 +24,14 @@ $(document).ready(function () {
       alert("logout failed, try again");
       console.log(error);
     });
+  });
+
+  // Listen to auth state changes
+  firebase.auth().onAuthStateChanged(function (user) {
+    console.log("logged out", user);
+    if (!user) {
+      document.location.href = "login.html";
+    }
   });
 
   //when the add card button is clicked, the information in the form is sent to the database.

@@ -10,8 +10,6 @@ var config = {
 firebase.initializeApp(config);
 
 (function () {
-    var app = document.querySelector('#app');
-
     //Login Button
     $("#login-btn").on("click", function (event) {
         event.preventDefault();

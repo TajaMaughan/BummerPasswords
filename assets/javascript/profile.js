@@ -9,7 +9,7 @@ var config = {
 };
 firebase.initializeApp(config);
 
-    $("#logout-link").on("click", function (event) {
+$("#logout-link").on("click", function (event) {
     event.preventDefault();
 
     firebase.auth().signOut().then(function () {
@@ -23,6 +23,6 @@ firebase.initializeApp(config);
 firebase.auth().onAuthStateChanged(function (user) {
     console.log("logged out", user);
     if (!user) {
-        //document.location.href = "login.html";
+        document.location.href = "login.html";
     }
 });

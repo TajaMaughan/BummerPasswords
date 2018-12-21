@@ -1,89 +1,73 @@
-<!DOCTYPE <!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Bummer Password Login</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/login.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
 </head>
 
 <body>
+    <header id="masthead" class="bg-info">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-info">
 
-    <div class="container">
-        <header id="masthead" class="bg-info">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-                <a class="navbar-brand" href="#">Bummer Passwords</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                        <a class="nav-item nav-link" href="passwords.html">Passwords</a>
-                        <a class="nav-item nav-link" href="profile.html">Profile</a>
-                        <a class="nav-item nav-link active" href="contact.html">Contact</a>
-                        <a class="nav-item nav-link" href="login.html">Log Out</a>
-                    </div>
-                </div>
-            </nav>
-        </header>
-
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-                <h1 class="display-3"><strong>Login</strong></h1>
+          <a class="navbar-brand" href="mainPage.html">Bummer Passwords</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
             </div>
-        </div>
-        <form action="/passwords.html">
-            <!-- for value, have text that says "User Name" that disappears upon entering text.
-            Input text will appear -->
-            User Name:<br>
-            <input type="text" name="username" value="User Name">
-            <br>
-            <!-- have text that says "Password"
+        </nav>
+    </header>
+    <form>
+        User Name:<br>
+        <input type="text" id="email" value="Email">
+        <br>
+        <!-- have text that says "Password"
             Input text will not appear, be *** instead-->
-            Password:<br>
-            <input type="text" name="password" value="Password">
-            <br><br>
-            <!-- Let Bummer Save the Day button links to Profile Page (Chelsea) -->
-            <input type="submit" value="Login">
-        </form>
+        Password:<br>
+        <input type="password" id="password" value="Password">
+        <br><br>
+        <!-- Let Bummer Save the Day button links to Profile Page (Chelsea) -->
+        <input type="submit" id="login-btn" value="Login">
+    </form>
 
-        <br></br>
+    <br></br>
 
-        <p>Need an account?</p>
+    <p>Need an account?</p>
 
-        <button>"Let Bummer Save the Day!"</button>
+    <button id="create-btn">"Let Bummer Save the Day!"</button>
 
-        <h3>Bummer's Got Your Back</h13>
+    <h3>Bummer's Got Your Back</h3>
 
-            <footer id="footer">
+        <footer id="footer">
 
-                    <p><strong>
-                        Don't be a bum by trying to memorize all your passwords; instead let Bummer Passwords do that for you.
-                    </strong></p>
-    
-                </footer>
-            <!-- If you click the "Let Bummer Save the Day" button, the form-data will be sent to a page called "/notyetnamed_page.php".</p> -->
+                <p><strong>
+                    Don't be a bum by trying to memorize all your passwords; instead let Bummer Passwords do that for you.
+                </strong></p>
 
-            <!-- FORM ATTRIBUTES TO ADD:
-        accept-charset - specifies the charset used in the submitted form (default: the page charset)
-        action - specifies an address (url) where to submit the form (default: the submitting page)
-        enctype - specifies the encoding of the submitted data (default: is url-encoded).
+            </footer>
 
-    -->
-            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-                crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-                crossorigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-                crossorigin="anonymous"></script>
+    <h3>Bummer's Got Your Back</h3>
 
-    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-database.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script src="assets/javascript/login.js"></script>
+
 </body>
 
 </html>
