@@ -15,6 +15,9 @@ $(document).ready(function () {
   var website = "";
   var username = "";
   var password = "";
+  var cardArray = [];
+  var cardNumber = 0;
+
 
   $("#logout-link").on("click", function (event) {
     event.preventDefault();
@@ -40,24 +43,37 @@ $(document).ready(function () {
     website = $("#websiteValue").val().trim();
     username = $("#usernameValue").val().trim();
     password = $("#passwordValue").val().trim();
-
+    if (website === "" || username === "" || password === "") {
+      $("#errorMessage").html("Please fill out all fields");
+      return false;
+    }
+    //resets the form to bve blank
     $("#websiteValue").val("");
     $("#usernameValue").val("");
     $("#passwordValue").val("");
+    $("#errorMessage").html("");
 
     database.ref().push({
       website: website,
       username: username,
       password: password
     })
-    console.log("clicked");
   })
-
   //then the information is pulled from the database and put on the screen
   database.ref().on("child_added", function (snapshot) {
     var snapshot = snapshot.val();
-    $("#cardSpace").append('<div class="card" style="width: 18rem;"><div class="card-body"><h5 class="card-title"><a href="' + snapshot.website + '" class="website">Website:  ' + snapshot.website + '</a></h5><p class="card-text" class="username">Username: ' + snapshot.username + '</p><p class="card-text" class="password">Password: ' + snapshot.password + '</p><button href="#" class="btn btn-primary edit">Edit</button><button href="#" class="btn btn-primary delete">Delete</button></div></div>');
+    console.log(snapshot.website);
+    cardNumber++;
+    cardArray.push(cardNumber);
+      $("#cardSpace").append('<div class="card" style="width: 18rem;"><div class="card-body"><h5 class="card-title"><a href="http://www.' + snapshot.website + ' class="website">Website:  ' + snapshot.website + '</a></h5><p class="card-text" class="username">Username: ' + snapshot.username + '</p><p class="card-text" class="password">Password: ' + snapshot.password + '</p><button href="#" class="btn btn-primary edit">Edit</button><button href="#" class="btn btn-primary delete">Delete</button></div></div>');
+      console.log(cardArray);
   })
-
-
+  for(i = 0; i < cardArray.length; i++) {
+    $(".card").each(function() {
+      $(this).attr("id", [i]);
+    })
+  }
+  $(".delete").click(function () {
+    console.log("clicked");
+  })
 })
