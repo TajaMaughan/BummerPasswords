@@ -15,6 +15,7 @@ $(document).ready(function () {
   var website = "";
   var username = "";
   var password = "";
+  
 
   $("#logout-link").on("click", function (event) {
     event.preventDefault();
