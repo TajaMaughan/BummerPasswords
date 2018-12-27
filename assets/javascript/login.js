@@ -38,6 +38,7 @@ firebase.initializeApp(config);
         // Grabs user input
         var email = $("#email").val().trim();
         var password = $("#password").val().trim();
+    
 
         if (!email || !password) {
             return console.log('email and password required');
