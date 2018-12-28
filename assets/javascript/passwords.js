@@ -8,6 +8,11 @@ var config = {
   messagingSenderId: "6699316700"
 };
 firebase.initializeApp(config);
+
+function setPasswordField(randomPassword) {
+  $("#passwordValue").val(randomPassword);
+}
+
 //when page is ready, make is so that you can add a card.
 $(document).ready(function () {
 
@@ -16,6 +21,21 @@ $(document).ready(function () {
   var username = "";
   var password = "";
   var cardArray = [];
+
+  $("#generator").on("click", function (event) {
+    event.preventDefault();
+
+    var queryURL = "https://cors-anywhere.herokuapp.com/https://www.passwordrandom.com/query?command=password&format=json&count=1"
+
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    })
+
+      .then(function (response) {
+        setPasswordField(response.char[0]);
+      });
+  })
 
   $("#logout-link").on("click", function (event) {
     event.preventDefault();
@@ -29,9 +49,11 @@ $(document).ready(function () {
 
   // Listen to auth state changes
   firebase.auth().onAuthStateChanged(function (user) {
-    console.log("logged out", user);
     if (!user) {
+      console.log("logged out");
       document.location.href = "login.html";
+    } else {
+      console.log("logged in", user);
     }
   });
 
