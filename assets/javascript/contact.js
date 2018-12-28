@@ -13,7 +13,7 @@ $("#add-contact").click(function (event) {
   console.log(email);
   console.log(comments);
 
-  alert("You've been successfully signed up")
+  alert("Thank you for contacting Bummer Passwords")
 })
 
 // Initialize Firebase
