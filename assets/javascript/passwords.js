@@ -19,7 +19,6 @@ $(document).ready(function () {
   var website = "";
   var username = "";
   var password = "";
-  var cardArray = [];
 
   $("#generator").on("click", function (event) {
     event.preventDefault();
@@ -60,11 +59,10 @@ $(document).ready(function () {
         var snapshot = child.val();
         console.log(child.key);
 
-        var div = '<div class="card passCard" id="card' + child.key + '" style="width: 18rem;"><div class="card-body"><h5 class="card-title"><a href="http://www.' + snapshot.website + '" target="_blank" class="website">Website:  ' + snapshot.website + '</a></h5><p class="card-text" class="username">Username: ' + snapshot.username + '</p><p class="card-text" class="password">Password: ' + snapshot.password + '</p><button href="#" class="btn btn-primary edit">Edit</button><button href="#" class="btn btn-primary delete" data-id="' + child.key + '">Delete</button></div></div>';
+        var div = '<div class="card col-xs-12 col-sm-6 col-md-4 col-lg-3 m-3" id="card' + child.key + '"><div class="card-body"><h5 class="card-title"><a href="http://www.' + snapshot.website + '" target="_blank" class="website">Website:  ' + snapshot.website + '</a></h5><p class="card-text" class="username">Username: ' + snapshot.username + '</p><p class="card-text" class="password">Password: ' + snapshot.password + '</p><button href="#" class="btn btn-primary delete" data-id="' + child.key + '">Delete</button></div></div>';
         $("#cardSpace").append(div);
-
-        cardArray.push(div);
       })
+      //when card is removed from database, card is removed from website
       passwordsDbRef.on("child_removed", function (child) {
         $("#card" + child.key).remove();
       })
@@ -81,7 +79,7 @@ $(document).ready(function () {
       $("#errorMessage").html("Please fill out all fields");
       return false;
     }
-    //resets the form to bve blank
+    //resets the form to blank
     $("#websiteValue").val("");
     $("#usernameValue").val("");
     $("#passwordValue").val("");
@@ -94,6 +92,7 @@ $(document).ready(function () {
     })
   })
 
+  //removes card from database
   $("body").on("click", ".delete", function () {
     var id = $(this).attr("data-id")
     passwordsDbRef.child(id).remove();
