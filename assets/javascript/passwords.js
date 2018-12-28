@@ -17,7 +17,6 @@ $(document).ready(function () {
   var password = "";
   var cardArray = [];
 
-
   $("#logout-link").on("click", function (event) {
     event.preventDefault();
 
@@ -58,23 +57,38 @@ $(document).ready(function () {
       password: password
     })
   })
+
   //then the information is pulled from the database and put on the screen
   database.ref().on("child_added", function (child) {
     var snapshot = child.val();
     console.log(child.key);
 
-    var div = '<div class="card passCard" id="card' + child.key + '" style="width: 18rem;"><div class="card-body"><h5 class="card-title"><a href="http://www.' + snapshot.website + '" target="_blank" class="website">Website:  ' + snapshot.website + '</a></h5><p class="card-text" class="username">Username: ' + snapshot.username + '</p><p class="card-text" class="password">Password: ' + snapshot.password + '</p><button href="#" class="btn btn-primary edit">Edit</button><button href="#" class="btn btn-primary delete" data-id="' + child.key + '">Delete</button></div></div>';
+    var div = '<div class="card passCard" id="card' + child.key + '" style="width: 18rem;"><div class="card-body"><h5 class="card-title"><a href="http://www.' + snapshot.website + '" target="_blank" class="website">Website:  ' + snapshot.website + '</a></h5><p class="card-text" class="username">Username: ' + snapshot.username + '</p><p class="card-text" class="password">Password: ' + snapshot.password + '</p><button href="#" class="btn btn-primary edit" data-id="' + child.key + '">Edit</button><button href="#" class="btn btn-primary delete" data-id="' + child.key + '">Delete</button></div></div>';
     $("#cardSpace").append(div);
 
     cardArray.push(div);
-
-    
   })
-  database.ref().on("child_removed", function(child) {
+
+  //when the delete button is click, the card is removed.
+  database.ref().on("child_removed", function (child) {
     $("#card" + child.key).remove();
   })
   $("body").on("click", ".delete", function () {
     var id = $(this).attr("data-id")
     database.ref().child(id).remove();
   })
+
+  //edit cards
+  $("body").on("click", ".edit", function () {
+    var id = $(this).attr("data-id")
+    $(id).parentElement.html('<div class="card" style="width: 18rem;"><form><div class="form-group"><p id="errorMessage"></p><label for="website">Website (format: example.com)</label><input type="text" class="form-control" id="websiteValue" placeholder=""></div><div class="form-group"><label for="username">Username</label><input type="text" class="form-control" id="usernameValue" placeholder=""></div><div class="form-group"><label for="password">Password</label><input type="text" class="form-control" id="passwordValue" placeholder=""></div><button type="submit" class="btn btn-primary" id="addCard">Add</button></form></div>');
+    
+    database.ref().child(id).update({website: "yes", username: "it", password: "works"})
+  })
+  database.ref().on("child_changed", function(){
+
+  })
 })
+
+
+
