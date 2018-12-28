@@ -8,6 +8,7 @@ var config = {
   messagingSenderId: "6699316700"
 };
 firebase.initializeApp(config);
+var passwordsDbRef;
 
 function setPasswordField(randomPassword) {
   $("#passwordValue").val(randomPassword);
@@ -15,8 +16,6 @@ function setPasswordField(randomPassword) {
 
 //when page is ready, make is so that you can add a card.
 $(document).ready(function () {
-
-  var database = firebase.database();
   var website = "";
   var username = "";
   var password = "";
@@ -54,6 +53,21 @@ $(document).ready(function () {
       document.location.href = "login.html";
     } else {
       console.log("logged in", user);
+      passwordsDbRef = firebase.database().ref('passwords/' + user.uid);
+
+      //then the information is pulled from the database and put on the screen
+      passwordsDbRef.on("child_added", function (child) {
+        var snapshot = child.val();
+        console.log(child.key);
+
+        var div = '<div class="card passCard" id="card' + child.key + '" style="width: 18rem;"><div class="card-body"><h5 class="card-title"><a href="http://www.' + snapshot.website + '" target="_blank" class="website">Website:  ' + snapshot.website + '</a></h5><p class="card-text" class="username">Username: ' + snapshot.username + '</p><p class="card-text" class="password">Password: ' + snapshot.password + '</p><button href="#" class="btn btn-primary edit">Edit</button><button href="#" class="btn btn-primary delete" data-id="' + child.key + '">Delete</button></div></div>';
+        $("#cardSpace").append(div);
+
+        cardArray.push(div);
+      })
+      passwordsDbRef.on("child_removed", function (child) {
+        $("#card" + child.key).remove();
+      })
     }
   });
 
@@ -73,31 +87,15 @@ $(document).ready(function () {
     $("#passwordValue").val("");
     $("#errorMessage").html("");
 
-    database.ref().push({
+    passwordsDbRef.push({
       website: website,
       username: username,
       password: password
     })
   })
-
-  //then the information is pulled from the database and put on the screen
-  database.ref().on("child_added", function (child) {
-    var snapshot = child.val();
-    console.log(child.key);
-
-    var div = '<div class="card passCard" id="card' + child.key + '" style="width: 18rem;"><div class="card-body"><h5 class="card-title"><a href="http://www.' + snapshot.website + '" target="_blank" class="website">Website:  ' + snapshot.website + '</a></h5><p class="card-text" class="username">Username: ' + snapshot.username + '</p><p class="card-text" class="password">Password: ' + snapshot.password + '</p><button href="#" class="btn btn-primary edit" data-id="' + child.key + '">Edit</button><button href="#" class="btn btn-primary delete" data-id="' + child.key + '">Delete</button></div></div>';
-    $("#cardSpace").append(div);
-
-    cardArray.push(div);
-  })
-
-  //when the delete button is click, the card is removed.
-  database.ref().on("child_removed", function (child) {
-    $("#card" + child.key).remove();
-  })
   $("body").on("click", ".delete", function () {
     var id = $(this).attr("data-id")
-    database.ref().child(id).remove();
+    passwordsDbRef.child(id).remove();
   })
 
   //edit cards
