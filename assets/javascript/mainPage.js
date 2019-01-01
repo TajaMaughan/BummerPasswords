@@ -3,6 +3,8 @@ $("#mpb").click(function(event){
     event.preventDefault();
 
     alert("Hooray, you want to join")
+
+    location.href='profile.html'
 });
 
 var config = {
