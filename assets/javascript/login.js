@@ -19,14 +19,18 @@ firebase.initializeApp(config);
         var password = $("#password").val().trim();
 
         if (!email || !password) {
-            return alert('email and password required');
+            $('#alertModalBody').text('Email and password required');
+            $('#alertModal').modal('show');
+            return;
         }
         //Sign in user
         firebase.auth().signInWithEmailAndPassword(email, password)
             .catch(function (error) {
                 //Handle Errors here.
+                $('#alertModalBody').text('Invalid email or password');
+                $('#alertModal').modal('show');
                 console.log('signIn error', error);
-                alert("Invalid email or password.");
+                return;
             });
     });
 
@@ -38,10 +42,12 @@ firebase.initializeApp(config);
         // Grabs user input
         var email = $("#email").val().trim();
         var password = $("#password").val().trim();
-    
+
 
         if (!email || !password) {
-            return console.log('email and password required');
+            $('#alertModalBody').text('Email and password required to create an account.');
+            $('#alertModal').modal('show');
+            return;
         }
 
         //Register user
@@ -49,9 +55,12 @@ firebase.initializeApp(config);
             .catch(function (error) {
                 console.log('register error', error);
                 if (error.code === 'auth/email-already-in-use') {
-                    alert("This email is already in use. Log in or try to register another email.");
+                    $('#alertModalBody').text("This email is already in use. Log in or try to register another email.");
+                    $('#alertModal').modal('show');
                 } else if (error.code === 'auth/weak-password') {
-                    alert("Password requires at least 6 characters");
+                    $('#alertModalBody').text("Password requires at least 6 characters");
+                    $('#alertModal').modal('show');
+                    return;
                 }
             });
     });
