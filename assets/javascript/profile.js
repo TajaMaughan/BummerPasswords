@@ -31,7 +31,7 @@ $("#logout-link").on("click", function (event) {
 firebase.auth().onAuthStateChanged(function (user) {
     if (!user) {
         console.log("logged out");
-        document.location.href = "login.html";
+        document.location.href = "index.html";
     } else {
         console.log("logged in", user);
         displayPhoto(user.photoURL);
