@@ -49,7 +49,7 @@ $(document).ready(function () {
   firebase.auth().onAuthStateChanged(function (user) {
     if (!user) {
       console.log("logged out");
-      document.location.href = "login.html";
+      document.location.href = "index.html";
     } else {
       console.log("logged in", user);
       passwordsDbRef = firebase.database().ref('passwords/' + user.uid);
