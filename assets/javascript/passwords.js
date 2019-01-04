@@ -40,8 +40,10 @@ $(document).ready(function () {
 
     firebase.auth().signOut().then(function () {
     }).catch(function (error) {
-      alert("logout failed, try again");
+      $('#alertModalBody').text("logout failed, try again");
+      $('#alertModal').modal('show');
       console.log(error);
+      return;
     });
   });
 
@@ -76,7 +78,8 @@ $(document).ready(function () {
     username = $("#usernameValue").val().trim();
     password = $("#passwordValue").val().trim();
     if (website === "" || username === "" || password === "") {
-      $("#errorMessage").html("Please fill out all fields");
+      $('#alertModalBody').text("Please fill out all fields");
+      $('#alertModal').modal('show');
       return false;
     }
     //resets the form to blank
