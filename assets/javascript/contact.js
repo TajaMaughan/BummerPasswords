@@ -32,8 +32,10 @@ $("#logout-link").on("click", function (event) {
 
   firebase.auth().signOut().then(function () {
   }).catch(function (error) {
-      alert("logout failed, try again");
-      console.log(error);
+    $('#alertModalBody').text("logout failed, try again");
+    $('#alertModal').modal('show');
+    console.log(error);
+    return;
   });
 });
 
@@ -41,6 +43,6 @@ $("#logout-link").on("click", function (event) {
 firebase.auth().onAuthStateChanged(function (user) {
   console.log("logged out", user);
   if (!user) {
-      document.location.href = "index.html";
+    document.location.href = "index.html";
   }
 });

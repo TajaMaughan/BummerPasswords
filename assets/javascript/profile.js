@@ -22,8 +22,10 @@ $("#logout-link").on("click", function (event) {
 
     firebase.auth().signOut().then(function () {
     }).catch(function (error) {
-        alert("logout failed, try again");
+        $('#alertModalBody').text("logout failed, try again");
+        $('#alertModal').modal('show');
         console.log(error);
+        return;
     });
 });
 
@@ -53,7 +55,8 @@ $("#save-btn").on("click", function (event) {
     var updateUser = {};
 
     if (!displayName && !photoURL) {
-        alert("Nothing was provided to update.");
+        $('#alertModalBody').text("Nothing was provided to update.");
+        $('#alertModal').modal('show');
         return;
     }
 
@@ -65,11 +68,14 @@ $("#save-btn").on("click", function (event) {
     }
 
     user.updateProfile(updateUser).then(function () {
-        alert("profile updated")
+        $('#alertModalBody').text("profile updated");
+        $('#alertModal').modal('show');
         displayPhoto(user.photoURL);
     }).catch(function (error) {
+        $('#alertModalBody').text("failed to update profile");
+        $('#alertModal').modal('show');
         console.log(error);
-        alert("failed to update profile");
+        return;
     });
 });
 
@@ -83,27 +89,32 @@ $("#save-pass-btn").on("click", function (event) {
 
 
     if (!oldPassword) {
-        alert("Please provide old password");
+        $('#alertModalBody').text("Please provide old password");
+        $('#alertModal').modal('show');
         return;
     }
 
     if (!newPassword) {
-        alert("Please provide new password");
+        $('#alertModalBody').text("Please provide new password");
+        $('#alertModal').modal('show');
         return;
     }
 
     if (!verifyPassword) {
-        alert("Please verify password");
+        $('#alertModalBody').text("Please verify password");
+        $('#alertModal').modal('show');
         return;
     }
 
     if (newPassword !== verifyPassword) {
-        alert("New password and verify password did not match.");
+        $('#alertModalBody').text("New password and verify password did not match.");
+        $('#alertModal').modal('show');
         return;
     }
 
     if (newPassword.length <= 5) {
-        alert("New password must be at least 6 characters.");
+        $('#alertModalBody').text("New password must be at least 6 characters.");
+        $('#alertModal').modal('show');
         return;
     }
 
@@ -116,15 +127,19 @@ $("#save-pass-btn").on("click", function (event) {
         // User re-authenticated. We can now update the password.
         user.updatePassword(newPassword).then(function () {
             // Update successful.
-            alert("Password updated");
+            $('#alertModalBody').text("Password updated");
+            $('#alertModal').modal('show');
         }).catch(function (error) {
+            $('#alertModalBody').text("failed to update password");
+            $('#alertModal').modal('show');
             console.log(error);
-            alert("failed to update password");
+            return;
         });
     }).catch(function (error) {
         // An error happened.
+        $('#alertModalBody').text("re-authentication failed. Check your old password entry and try again.");
+        $('#alertModal').modal('show');
         console.log(error);
-        alert("re-authentication failed. Check your old password entry and try again.");
     });
 });
 
