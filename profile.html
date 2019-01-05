@@ -12,6 +12,24 @@
 </head>
 
 <body>
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="alertModalLabel">Alert</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="alertModalBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <header id="masthead" class="bg-info">
         <nav class="navbar navbar-expand-lg navbar-dark bg-info">
             <a class="navbar-brand" href="mainPage.html">Bummer Passwords</a>
@@ -32,7 +50,7 @@
 
     <div class="container bootstrap snippet">
         <div class="jumbotron">
-                <h1>My Profile</h1>
+            <h1>My Profile</h1>
         </div>
         <div class="row">
             <div class="col-sm-3">
@@ -68,7 +86,7 @@
                     <div class="form-group">
                         <div class="col-xs-12">
                             <br>
-                            <button type= "save" class="btn btn-primary" id="save-btn">Save</button>
+                            <button type="save" class="btn btn-primary" id="save-btn">Save</button>
                         </div>
                     </div>
                     <div class="form-group">
